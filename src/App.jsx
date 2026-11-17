@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from './lib/supabase'
 import Login from './components/Login'
+import InventarioModule from './components/InventarioModule'
 import {
   ClipboardList,
   Package,
@@ -167,15 +168,21 @@ export default function App() {
 
       {/* Área Principal de Contenido */}
       <main className="flex-1 p-4 md:p-8 overflow-y-auto">
-        <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h2 className="text-xl font-bold text-[#0D1B2A] capitalize">
-            Módulo: {itemsPermitidos.find((i) => i.id === moduloActivo)?.label}
-          </h2>
-          <p className="text-slate-500 text-sm mt-1">
-            Conexión exitosa con Supabase PostgreSQL. Listo para construir la interfaz de este módulo.
-          </p>
-        </div>
-      </main>
+  <div className="max-w-6xl mx-auto bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+    {moduloActivo === 'inventario' ? (
+      <InventarioModule perfil={perfil} />
+    ) : (
+      <>
+        <h2 className="text-xl font-bold text-[#0D1B2A] capitalize">
+          Módulo: {itemsPermitidos.find((i) => i.id === moduloActivo)?.label}
+        </h2>
+        <p className="text-slate-500 text-sm mt-1">
+          Conexión exitosa con Supabase PostgreSQL. Listo para construir la interfaz de este módulo.
+        </p>
+      </>
+    )}
+  </div>
+</main>
     </div>
   )
 }
